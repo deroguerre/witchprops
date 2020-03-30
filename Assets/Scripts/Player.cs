@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class Player : MonoBehaviour {
+public class Player : NetworkBehaviour {
 
 
 	private GameObject target;
@@ -12,11 +13,20 @@ public class Player : MonoBehaviour {
 
 	// Start is called before the first frame update
 	void Start() {
+
+	}
+
+	// Executed only on the local player
+	public override void OnStartLocalPlayer() {
 		target = GameObject.FindGameObjectWithTag("CamTarget");
 		_rigidbody = GetComponent<Rigidbody>();
 	}
 
 	void LateUpdate() {
+
+		if (!isLocalPlayer) {
+			return;
+		}
 
 		Rigidbody targetRb = target.GetComponent<Rigidbody>();
 		targetRb.position = Vector3.Lerp(transform.position, targetRb.position, Time.deltaTime * 50);

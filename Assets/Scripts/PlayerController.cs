@@ -25,7 +25,9 @@ public class PlayerController : NetworkBehaviour {
 	// Executed only on the local player
 	public override void OnStartLocalPlayer() {
 
-		base.OnStartLocalPlayer();
+		//base.OnStartLocalPlayer();
+
+		GetComponent<MeshRenderer>().material.color = Color.blue;
 
 		_mainCamera = Camera.main;
 		_rigidbody = GetComponent<Rigidbody>();
@@ -55,6 +57,10 @@ public class PlayerController : NetworkBehaviour {
 	}
 
 	private void FixedUpdate() {
+
+		if (!isLocalPlayer) {
+			return;
+		}
 		//float moveHorizontal = Input.GetAxis("Horizontal");
 		//float moveVertical = Input.GetAxis("Vertical");
 
