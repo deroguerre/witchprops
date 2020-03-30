@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : NetworkBehaviour {
 
-	public Camera mainCamera;
 	public float movePower = 1;
 	public float maxSpeed = 2;
 	public float jumpHeight = 1;
@@ -12,19 +12,32 @@ public class PlayerController : MonoBehaviour {
 	public float fallMultiplier = 2.5f;
 	public bool isGrounded;
 
-	private Vector3 maxVelocity;
-
+	private Camera _mainCamera;
+	private Vector3 _maxVelocity;
 	private Rigidbody _rigidbody;
-	private Transform camTransform;
-	private Transform camTarget;
+	private Transform _camTransform;
+	private Transform _camTarget;
 
 	void Start() {
+
+	}
+
+	// Executed only on the local player
+	public override void OnStartLocalPlayer() {
+
+		base.OnStartLocalPlayer();
+
+		_mainCamera = Camera.main;
 		_rigidbody = GetComponent<Rigidbody>();
-		camTarget = gameObject.transform.Find("CamTarget");
-		maxVelocity = new Vector3(maxSpeed, maxSpeed, maxSpeed);
+		_camTarget = gameObject.transform.Find("CamTarget");
+		_maxVelocity = new Vector3(maxSpeed, maxSpeed, maxSpeed);
 	}
 
 	void Update() {
+
+		if (!isLocalPlayer) {
+			return;
+		}
 
 		//Jump
 		if (Input.GetButtonDown("Jump")) {
@@ -38,37 +51,6 @@ public class PlayerController : MonoBehaviour {
 			_rigidbody.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
 		}
 
-		//Debug.Log(Input.GetAxis("Dash"));
-
-		//if (Input.GetButton("LB")) {
-		//	Debug.Log("LB pressed");
-
-		//	if (gameObject.GetComponent<MSCameraController>().CameraSettings.orbital.minDistance > 0.1f) {
-		//		gameObject.GetComponent<MSCameraController>().CameraSettings.orbital.minDistance -= 0.5f;
-		//		gameObject.GetComponent<MSCameraController>().CameraSettings.orbital.maxDistance -= 0.5f;
-		//	}
-		//	//cameras[index]._camera.fieldOfView -= _scrollInputMSACC * CameraSettings.firstPerson.speedScroolZoom * 50.0f;
-		//}
-
-		//if (Input.GetButton("RB")) {
-		//	Debug.Log("RB pressed");
-		//	if (gameObject.GetComponent<MSCameraController>().CameraSettings.orbital.minDistance < 1000) {
-		//		gameObject.GetComponent<MSCameraController>().CameraSettings.orbital.minDistance += 0.5f;
-		//		gameObject.GetComponent<MSCameraController>().CameraSettings.orbital.maxDistance += 0.5f;
-		//	}
-		//}
-
-		//if (Input.GetAxis("Dash") < -0.1f) {
-		//	//Debug.Log("Left Dash");
-		//}
-
-		//if (Input.GetAxis("Dash") > 0.1f) {
-		//	//Debug.Log("Right Dash");
-		//	moveSpeed = 100f;
-		//	//thisRigibody.AddForce(Vector3.up * jumpHeight * 100);
-		//} else {
-		//	moveSpeed = 30f;
-		//}
 
 	}
 
@@ -80,10 +62,10 @@ public class PlayerController : MonoBehaviour {
 		input = Vector2.ClampMagnitude(input, 1);
 
 		//move player to camera direction
-		if (mainCamera != null) {
+		if (_mainCamera != null) {
 
-			Vector3 camF = mainCamera.transform.forward;
-			Vector3 camR = mainCamera.transform.right;
+			Vector3 camF = _mainCamera.transform.forward;
+			Vector3 camR = _mainCamera.transform.right;
 
 			camF.y = 0;
 			camR.y = 0;
@@ -94,7 +76,7 @@ public class PlayerController : MonoBehaviour {
 			_rigidbody.AddForce(movement);
 
 			//Max speed movement
-			if(_rigidbody.velocity.magnitude > maxSpeed) {
+			if (_rigidbody.velocity.magnitude > maxSpeed) {
 				_rigidbody.velocity = _rigidbody.velocity.normalized * maxSpeed;
 			}
 		}
