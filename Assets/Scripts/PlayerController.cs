@@ -18,10 +18,6 @@ public class PlayerController : NetworkBehaviour {
 	private Transform _camTransform;
 	private Transform _camTarget;
 
-	void Start() {
-
-	}
-
 	// Executed only on the local player
 	public override void OnStartLocalPlayer() {
 
@@ -35,7 +31,7 @@ public class PlayerController : NetworkBehaviour {
 		_maxVelocity = new Vector3(maxSpeed, maxSpeed, maxSpeed);
 	}
 
-	void Update() {
+	private void Update() {
 
 		if (!isLocalPlayer) {
 			return;
@@ -52,8 +48,6 @@ public class PlayerController : NetworkBehaviour {
 		} else if (_rigidbody.velocity.y > 0 && !Input.GetButton("Jump")) {
 			_rigidbody.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
 		}
-
-
 	}
 
 	private void FixedUpdate() {
@@ -61,9 +55,8 @@ public class PlayerController : NetworkBehaviour {
 		if (!isLocalPlayer) {
 			return;
 		}
-		//float moveHorizontal = Input.GetAxis("Horizontal");
-		//float moveVertical = Input.GetAxis("Vertical");
 
+		//get axis value from inputs
 		Vector2 input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 		input = Vector2.ClampMagnitude(input, 1);
 
@@ -86,23 +79,5 @@ public class PlayerController : NetworkBehaviour {
 				_rigidbody.velocity = _rigidbody.velocity.normalized * maxSpeed;
 			}
 		}
-
-		//if (camTarget != null) {
-		//	camTarget.transform.position = gameObject.transform.position;
-		//}
 	}
-
-	//private void OnCollisionEnter(Collision other) {
-
-	//	if (other.gameObject.tag == "Ground") {
-	//		isGrounded = true;
-	//	}
-	//}
-
-	//private void OnCollisionExit(Collision other) {
-	//	if (other.gameObject.tag == "Ground") {
-	//		isGrounded = false;
-	//	}
-	//}
-
 }

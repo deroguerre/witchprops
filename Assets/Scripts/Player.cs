@@ -5,21 +5,15 @@ using UnityEngine.Networking;
 
 public class Player : NetworkBehaviour {
 
-
-	private GameObject target;
-
+	private GameObject _target;
+	private Rigidbody _targetRigibody;
 	private Rigidbody _rigidbody;
-	private float yPosition;
-
-	// Start is called before the first frame update
-	void Start() {
-
-	}
 
 	// Executed only on the local player
 	public override void OnStartLocalPlayer() {
-		target = GameObject.FindGameObjectWithTag("CamTarget");
+		_target = GameObject.FindGameObjectWithTag("CamTarget");
 		_rigidbody = GetComponent<Rigidbody>();
+		_targetRigibody = _target.GetComponent<Rigidbody>();
 	}
 
 	void LateUpdate() {
@@ -28,11 +22,8 @@ public class Player : NetworkBehaviour {
 			return;
 		}
 
-		Rigidbody targetRb = target.GetComponent<Rigidbody>();
-		targetRb.position = Vector3.Lerp(transform.position, targetRb.position, Time.deltaTime * 50);
+		_targetRigibody.position = Vector3.Lerp(transform.position, _targetRigibody.position, Time.deltaTime * 50);
 	}
-
-
 
 	void OnGUI() {
 		//GUI.Label(new Rect(10, 10, 200, 20), "score: ");
