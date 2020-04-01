@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - CamTarget
+  - Selectable
   layers:
   - Default
   - TransparentFX

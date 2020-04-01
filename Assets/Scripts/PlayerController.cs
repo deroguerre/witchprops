@@ -15,8 +15,9 @@ public class PlayerController : NetworkBehaviour {
 	private Camera _mainCamera;
 	private Vector3 _maxVelocity;
 	private Rigidbody _rigidbody;
-	private Transform _camTransform;
-	private Transform _camTarget;
+
+	private GameObject _camTarget;
+	private Rigidbody _camTargetRb;
 
 	// Executed only on the local player
 	public override void OnStartLocalPlayer() {
@@ -27,8 +28,10 @@ public class PlayerController : NetworkBehaviour {
 
 		_mainCamera = Camera.main;
 		_rigidbody = GetComponent<Rigidbody>();
-		_camTarget = gameObject.transform.Find("CamTarget");
 		_maxVelocity = new Vector3(maxSpeed, maxSpeed, maxSpeed);
+
+		_camTarget = GameObject.FindGameObjectWithTag("CamTarget");
+		_camTargetRb = _camTarget.GetComponent<Rigidbody>();
 	}
 
 	private void Update() {
@@ -80,4 +83,14 @@ public class PlayerController : NetworkBehaviour {
 			}
 		}
 	}
+
+	void LateUpdate() {
+
+		if (!isLocalPlayer) {
+			return;
+		}
+
+		_camTargetRb.position = Vector3.Lerp(transform.position, _camTargetRb.position, Time.deltaTime * 50);
+	}
+
 }
