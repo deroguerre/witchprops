@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CamTarget
   - Selectable
+  - Ground
   layers:
   - Default
   - TransparentFX

@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class CursorScript : MonoBehaviour
 {
+    public bool lockCursor = false;
+
     // Start is called before the first frame update
     void Start()
     {
-		//Set Cursor to not be visible
-		//Cursor.visible = false;
-
-		Screen.lockCursor = true;
-	}
+        if (lockCursor)
+            Cursor.lockState = CursorLockMode.Locked;
+    }
 }

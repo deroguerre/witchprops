@@ -586,8 +586,11 @@ public class MSCameraController : MonoBehaviour {
 			float minDistance = CameraSettings.orbital.minDistance;
 			if (Physics.Linecast (targetTransform.position, cameras [index]._camera.transform.position, out hitCamOrbital)) {
 				if (!CameraSettings.orbital.ignoreCollision) {
-					distanceFromOrbitalCamera [index] = Vector3.Distance (targetTransform.position, hitCamOrbital.point);
-					minDistance = Mathf.Clamp (distanceFromOrbitalCamera [index], minDistance * 0.5f, CameraSettings.orbital.maxDistance);
+					if (targetTransform.tag != "Player")
+					{
+						distanceFromOrbitalCamera [index] = Vector3.Distance (targetTransform.position, hitCamOrbital.point);
+						minDistance = Mathf.Clamp (distanceFromOrbitalCamera [index], minDistance * 0.5f, CameraSettings.orbital.maxDistance);
+					}
 				}
 			}
 			//getInputs
