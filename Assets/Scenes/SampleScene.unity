@@ -3420,7 +3420,7 @@ MonoBehaviour:
   m_LogLevel: 2
   m_PlayerPrefab: {fileID: 6888221295049646460, guid: 16c7ad6faba5fca49a75db81baa74ca1,
     type: 3}
-  m_AutoCreatePlayer: 0
+  m_AutoCreatePlayer: 1
   m_PlayerSpawnMethod: 1
   m_OfflineScene: 
   m_OnlineScene: 
@@ -3486,7 +3486,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 478548099}
   hunterPrefab: {fileID: 1109049153789882882, guid: 47e42acae098168469e0669c502439a1,
     type: 3}
-  hunterIsActive: 0
+  hunterIsActive: 1
 --- !u!1001 &957075568
 PrefabInstance:
   m_ObjectHideFlags: 0

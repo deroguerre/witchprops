@@ -125,10 +125,9 @@ public class PlayerController : NetworkBehaviour
     private void RpcChangeMesh()
     {
         // prevent object to pass through terrain/objects
-        //_transform.position += new Vector3(0, 0.1f, 0);
+        gameObject.transform.position += new Vector3(0, 0.2f, 0);
 
         // apply props mesh to player mesh
-
         gameObject.GetComponent<MeshFilter>().sharedMesh = allAvailableProps[_propsIterator].GetComponent<MeshFilter>().sharedMesh;
         gameObject.GetComponent<MeshCollider>().sharedMesh = allAvailableProps[_propsIterator].GetComponent<MeshFilter>().sharedMesh;
         

@@ -132,7 +132,7 @@ MonoBehaviour:
   fallMultiplier: 2.5
   allAvailableProps:
   - {fileID: 139238, guid: ea39c929a43fec843a8747fa0f34346e, type: 3}
-  - {fileID: 178364, guid: 419d48a3ccca1474ab18ed62c87ead45, type: 3}
+  - {fileID: 187170, guid: 43578e9321cdf104991a337104abcf84, type: 3}
 --- !u!114 &8540276267483115384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,4 +200,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c1b8fbfae4ebe942a1347c711934c63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deadMaterial: {fileID: 0}
   currentHealth: 100
