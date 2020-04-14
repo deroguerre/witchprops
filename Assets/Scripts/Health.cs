@@ -10,12 +10,17 @@ public class Health : NetworkBehaviour
     public Material deadMaterial;
     [SyncVar] public int currentHealth = maxHealth;
 
+    private GameObject sceneManager = null;
+
+    private void Start()
+    {
+        sceneManager = GameObject.Find("SceneManager");
+    }
+
     public void TakeDamage(int amount)
     {
         if (!isServer)
             return;
-
-        Debug.Log("nb player" + NetworkLobbyCustom.nbSimplePlayer);
 
         currentHealth -= amount;
         if (currentHealth <= 0)
@@ -27,8 +32,7 @@ public class Health : NetworkBehaviour
             // endgame when all player are dead
             if (NetworkLobbyCustom.nbSimplePlayer <= 0)
             {
-                Debug.Log("nb player" + NetworkLobbyCustom.nbSimplePlayer);
-                CmdEndGame();
+                sceneManager.GetComponent<DisplayEndGame>().RpcShowPanel(true);
             }
 
             // remove player
@@ -37,28 +41,19 @@ public class Health : NetworkBehaviour
         }
     }
 
-    [ClientRpc]
-    private void RpcRespawn()
-    {
-        if (isLocalPlayer)
-        {
-            transform.position = Vector3.zero;
-        }
-    }
+    //[ClientRpc]
+    //private void RpcRespawn()
+    //{
+    //    if (isLocalPlayer)
+    //    {
+    //        transform.position = Vector3.zero;
+    //    }
+    //}
 
     [Command]
     private void CmdDie()
     {
         //gameObject.GetComponent<Renderer>().material = deadMaterial;
         //NetworkServer.Destroy(gameObject);
-    }
-
-    [Command]
-    private void CmdEndGame()
-    {
-        Debug.Log("End game");
-        NetworkLobbyCustom.hunterIsActive = false;
-        NetworkLobbyCustom.nbSimplePlayer = 0;
-        NetworkManager.singleton.ServerChangeScene("Lobby");
     }
 }

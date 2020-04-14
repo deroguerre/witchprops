@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 64330261194363610}
   - component: {fileID: 6888221295049646455}
   - component: {fileID: 6888221295049646454}
+  - component: {fileID: 114438853631968528}
   - component: {fileID: 8540276267483115384}
   - component: {fileID: 114023089960428272}
-  - component: {fileID: 114438853631968528}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -133,6 +133,21 @@ MonoBehaviour:
   allAvailableProps:
   - {fileID: 139238, guid: ea39c929a43fec843a8747fa0f34346e, type: 3}
   - {fileID: 187170, guid: 43578e9321cdf104991a337104abcf84, type: 3}
+--- !u!114 &114438853631968528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6888221295049646460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c1b8fbfae4ebe942a1347c711934c63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deadMaterial: {fileID: 0}
+  currentHealth: 100
+  sceneManager: {fileID: 0}
 --- !u!114 &8540276267483115384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,17 +203,3 @@ MonoBehaviour:
   m_SnapThreshold: 5
   m_InterpolateRotation: 1
   m_InterpolateMovement: 1
---- !u!114 &114438853631968528
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6888221295049646460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c1b8fbfae4ebe942a1347c711934c63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  deadMaterial: {fileID: 0}
-  currentHealth: 100
