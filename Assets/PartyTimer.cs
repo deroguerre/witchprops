@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using System;
+#pragma warning disable 618
 
 public class PartyTimer : NetworkBehaviour
 {
@@ -23,7 +24,6 @@ public class PartyTimer : NetworkBehaviour
         if(isServer)
         {
             timer -= Time.deltaTime;
-            //Debug.Log(timer);
         }
 
         if (timer <= 0)
@@ -37,9 +37,6 @@ public class PartyTimer : NetworkBehaviour
         int seconds = Mathf.FloorToInt(timer - minutes * 60);
         string niceTime = string.Format("{0:0}:{1:00}", minutes, seconds);
 
-        //float truncateTime = Mathf.Round(timer * 10.0f) / 10.0f;
-        //Debug.Log(truncateTime);
-        //var ts = TimeSpan.FromSeconds(truncateTime);
         timerText.text = niceTime;
     }
 }

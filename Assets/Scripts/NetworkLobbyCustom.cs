@@ -46,8 +46,6 @@ public class NetworkLobbyCustom : NetworkLobbyManager
 		{
 			player = (GameObject)NetworkStartPosition.Instantiate(hunterPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation);
 			hunterIsActive = true;
-
-			var currentPos = spawnPoint.transform.position;
 		}
 		else
 		{

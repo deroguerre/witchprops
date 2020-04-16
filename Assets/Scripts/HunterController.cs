@@ -15,6 +15,8 @@ public class HunterController : NetworkBehaviour
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
 
+    public GameObject hunterCamera;
+
     /**
 	 * Camera components
 	 */
@@ -31,13 +33,26 @@ public class HunterController : NetworkBehaviour
     private MeshFilter _meshFilter;
     private MeshCollider _meshCollider;
 
+    private void Awake()
+    {
+        //_mainCamera = GameObject.Find("CameraPrincipal").GetComponent<Camera>();
+        //_mainCamera.gameObject.SetActive(true);
+    }
+
     // Start is called before the first frame update
     public override void OnStartLocalPlayer()
     {
         // init camera components
-        _mainCamera = Camera.main;
-        _camTarget = GameObject.FindGameObjectWithTag("CamTarget");
-        _camTargetRb = _camTarget.GetComponent<Rigidbody>();
+
+        //GameObject camGO = Instantiate(cameraPrefab);
+        //camGO.GetComponent<MSCameraController>().target = this.gameObject.transform;
+        //camGO.SetActive(true);
+        //_mainCamera = camGO.GetComponent<Camera>();
+
+        //_camTarget = GameObject.FindGameObjectWithTag("CamTarget");
+        //_camTargetRb = _camTarget.GetComponent<Rigidbody>();
+        //setupCamera();
+
 
         // init player components
         _transform = GetComponent<Transform>();
@@ -53,24 +68,21 @@ public class HunterController : NetworkBehaviour
         if (!isLocalPlayer)
             return;
 
-        // get axis value from inputs
-        Vector2 input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        input = Vector2.ClampMagnitude(input, 1);
+        float x = Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical");
 
-        // move player to camera direction
-        Transform camTransform = _mainCamera.transform;
-        Vector3 camF = camTransform.forward;
-        Vector3 camR = camTransform.right;
-
-        camF.y = 0;
-        camR.y = 0;
-        camF = camF.normalized;
-        camR = camR.normalized;
-
-        // player movements
-        Vector3 movement = (camF * input.y + camR * input.x) * (Time.fixedDeltaTime * moveSpeed);
+        Vector3 move = transform.right * x + transform.forward * z;
+        Vector3 movement = move * moveSpeed * Time.deltaTime;
         transform.position += movement;
-        
+
+        // get axis value from inputs
+        //Vector2 input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        //input = Vector2.ClampMagnitude(input, 1);
+
+        ////player movements
+        //Vector3 movement = input * (Time.fixedDeltaTime * moveSpeed);
+        //transform.position += movement;
+
         // player floating above ground and Y position adjustment
         RaycastHit hit;
         Ray downRay = new Ray(transform.position, -Vector3.up);
@@ -124,11 +136,11 @@ public class HunterController : NetworkBehaviour
         }
 
         // player rotation to look at center of screen
-        Vector3 mouseWorldPosition =
-            _mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
-        transform.LookAt(mouseWorldPosition);
-        transform.rotation =
-            Quaternion.Euler(new Vector3(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, 0));
+        //Vector3 mouseWorldPosition =
+        //    _mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
+        //transform.LookAt(mouseWorldPosition);
+        //transform.rotation =
+        //    Quaternion.Euler(new Vector3(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, 0));
     }
 
     void LateUpdate()
@@ -136,15 +148,40 @@ public class HunterController : NetworkBehaviour
         if (!isLocalPlayer)
             return;
 
-        _camTargetRb.position = Vector3.Lerp(transform.position, _camTargetRb.position, Time.deltaTime * 50);
+        //_camTargetRb.position = Vector3.Lerp(transform.position, _camTargetRb.position, Time.deltaTime * 50);
     }
 
     [Command]
     private void CmdFire()
     {
         GameObject bullet = (GameObject) Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
-        bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * -12.0f;
+        bullet.GetComponent<Rigidbody>().velocity = hunterCamera.transform.forward * 12.0f;
+        Physics.IgnoreCollision(bullet.GetComponent<SphereCollider>(), this.gameObject.GetComponent<SphereCollider>());
         NetworkServer.Spawn(bullet);
         Destroy(bullet, 2);
+    }
+
+    private void setupCamera()
+    {
+        //Camera hunterCamera = GameObject.Find("HunterCamera").GetComponent<Camera>();
+        //this.gameObject.GetComponent<MSCameraController>().cameras[0]._camera = hunterCamera;
+
+        //MSCameraController cameraController = Camera.main.GetComponent<MSCameraController>();
+        //cameraController.target = this.gameObject.transform;
+        //Camera.main.transform.parent = this.gameObject.transform;
+        //Destroy(GameObject.Find("CamTarget"));
+        //cameraController.cameras[0].rotationType = MSACC_CameraType.TipoRotac.FirstPerson;
+
+        //Camera.main.GetComponent<MSCameraController>().cameras[0].rotationType = MSACC_CameraType.TipoRotac.FirstPerson;
+
+        //Camera hunterCamera = Instantiate(hunterCameraPrefab);
+        //hunterCamera.GetComponent<MSCameraController>().target = this.gameObject.transform;
+        //Camera.main.gameObject.SetActive(false);
+        //hunterCameraPrefab.gameObject.SetActive(true);
+
+        //GameObject.Find("MainCamera").SetActive(false);
+        //GameObject.Find("FPSCamera").SetActive(true);
+
+        //return hunterCamera;
     }
 }

@@ -14,6 +14,8 @@ public class PlayerController : NetworkBehaviour
     public float fallMultiplier = 2.5f;
     public GameObject[] allAvailableProps;
 
+    public GameObject cameraPrefab;
+
     /**
 	 * Camera components
 	 */
@@ -40,9 +42,12 @@ public class PlayerController : NetworkBehaviour
         // GetComponent<MeshRenderer>().material.color = Color.blue;
 
         // init camera components
-        _mainCamera = Camera.main;
         _camTarget = GameObject.FindGameObjectWithTag("CamTarget");
         _camTargetRb = _camTarget.GetComponent<Rigidbody>();
+        GameObject camGO = Instantiate(cameraPrefab);
+        camGO.GetComponent<MSCameraController>().target = _camTarget.transform;
+        camGO.SetActive(true);
+        _mainCamera = camGO.GetComponent<Camera>();
 
         // init player components
         _transform = GetComponent<Transform>();

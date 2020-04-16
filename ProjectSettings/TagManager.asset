@@ -7,6 +7,7 @@ TagManager:
   - CamTarget
   - Selectable
   - Ground
+  - HunterPlayer
   layers:
   - Default
   - TransparentFX
