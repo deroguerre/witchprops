@@ -133,7 +133,7 @@ MonoBehaviour:
       speedYAxis: 0.5
       minDistance: 1
       maxDistance: 5
-      minAngleY: -85
+      minAngleY: 0
       maxAngleY: 85
       ignoreCollision: 1
       rotateWhenClick: 0

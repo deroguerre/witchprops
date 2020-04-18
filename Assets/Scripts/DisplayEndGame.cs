@@ -34,18 +34,19 @@ public class DisplayEndGame : NetworkBehaviour
 		Cursor.lockState = CursorLockMode.None;
 	}
 
-	public void BackToMainMenu()
+	public void backToMainMenu()
 	{
-		Debug.Log("End game");
-		NetworkLobbyCustom.HunterIsActive = false;
-		NetworkLobbyCustom.NbSimplePlayer = 0;
+		Debug.Log("BackToMainMenu");
+		PartyTimer.hidePhase = true;
+		PartyTimer.partyIsRunning = true;
+
+		NetworkLobbyCustom.singleton.StopClient();
 
 		if (isServer)
 		{
-			NetworkManager.singleton.StopServer();
+			NetworkLobbyCustom.singleton.StopServer();
 		}
 
-		NetworkManager.singleton.StopClient();
-		NetworkManager.singleton.client.Disconnect();
+		//NetworkManager.singleton.client.Disconnect();
 	}
 }

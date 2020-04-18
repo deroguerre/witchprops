@@ -313,10 +313,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 56864921}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8b5c9f2bc97cb445bbe83a98eb28fc9, type: 3}
+  m_Script: {fileID: 11500000, guid: b17e5e830cb75a24880bfa8086fe5a99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xParallaxPower: 0
+  xParallaxPower: 1
   yParallaxPower: 1
 --- !u!33 &71764403
 MeshFilter:
@@ -2868,7 +2868,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b304bf45520b2a340bf33c9e57cc26f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 492490836}
+  manager: {fileID: 0}
   showGUI: 1
   offsetX: 0
   offsetY: 0
@@ -5251,10 +5251,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 928564720}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8b5c9f2bc97cb445bbe83a98eb28fc9, type: 3}
+  m_Script: {fileID: 11500000, guid: b17e5e830cb75a24880bfa8086fe5a99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xParallaxPower: -1
+  xParallaxPower: 0
   yParallaxPower: -1
 --- !u!4 &928564722
 Transform:
@@ -5558,11 +5558,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1001591758}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8b5c9f2bc97cb445bbe83a98eb28fc9, type: 3}
+  m_Script: {fileID: 11500000, guid: b17e5e830cb75a24880bfa8086fe5a99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   xParallaxPower: 1
-  yParallaxPower: -1
+  yParallaxPower: 0
 --- !u!33 &1011171448
 MeshFilter:
   m_ObjectHideFlags: 0

@@ -35,7 +35,7 @@ public class PlayerController : NetworkBehaviour
 
     private float _jumpCooldown = 0.5f;
     private float _nextJump;
-    private float _transformationCooldown = 0.5f;
+    private float _transformationCooldown = 0.2f;
     private float _nextTransformation;
     private float _distToGround;
 
@@ -64,7 +64,7 @@ public class PlayerController : NetworkBehaviour
 
     private bool IsGrounded()
     {
-        return Physics.Raycast(transform.position, -Vector3.up, _distToGround + 0.1f);
+        return Physics.Raycast(transform.position, -Vector3.up, _distToGround + 0.2f);
     }
 
     private void Update()

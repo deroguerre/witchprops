@@ -11,10 +11,16 @@ public class NetworkLobbyCustom : NetworkLobbyManager
     public GameObject hunterPrefab;
     public GameObject playerSpawn;
     public GameObject hunterSpawn;
-    public static bool HunterIsActive = true;
+    public static bool HunterIsActive = false;
     public static int NbSimplePlayer = 0;
 
     private int _spawnSpacing = 1;
+
+    public override void OnLobbyStartHost()
+    {
+        base.OnLobbyStartHost();
+        resetScene();
+    }
 
     public override GameObject OnLobbyServerCreateGamePlayer(NetworkConnection conn, short playerControllerId)
     {
@@ -47,6 +53,39 @@ public class NetworkLobbyCustom : NetworkLobbyManager
         PartyTimer.partyIsRunning = true;
     }
 
+    public override void OnStopClient()
+    {
+        base.OnStopClient();
+        resetScene();
+        Debug.Log("OnStopClient");
+    }
+
+    public override void OnStopServer()
+    {
+        base.OnStopServer();
+        resetScene();
+        Debug.Log("OnStopServer");
+    }
+
+    public override void OnClientDisconnect(NetworkConnection conn)
+    {
+        base.OnClientDisconnect(conn);
+        resetScene();
+        Debug.Log("disconnected !!!");
+    }
+
+
+    public void resetScene()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        HunterIsActive = false;
+        NbSimplePlayer = 0;
+        PartyTimer.partyIsRunning = true;
+        PartyTimer.hidePhase = true;
+
+        Debug.Log("resetScene");
+    }
+
     // public override void OnServerDisconnect(NetworkConnection conn)
     // {
     //     base.OnServerDisconnect(conn);
@@ -60,14 +99,6 @@ public class NetworkLobbyCustom : NetworkLobbyManager
     //     Cursor.lockState = CursorLockMode.None;
     //     Debug.Log("OnClientDisconnect");
     // }
-
-    public override void OnStopClient()
-    {
-        base.OnStopClient();
-        Cursor.lockState = CursorLockMode.None;
-        HunterIsActive = false;
-        Debug.Log("OnStopClient");
-    }
 
     // public override void OnStopHost()
     // {
