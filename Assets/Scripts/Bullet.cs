@@ -12,7 +12,6 @@ public class Bullet : MonoBehaviour
         if (health != null)
         {
             health.TakeDamage(40);
-            //Debug.Log(health.currentHealth);
         }
         Destroy(gameObject);
     }

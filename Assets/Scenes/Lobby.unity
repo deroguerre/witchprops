@@ -122,7 +122,6 @@ GameObject:
   m_Component:
   - component: {fileID: 492490834}
   - component: {fileID: 492490836}
-  - component: {fileID: 492490835}
   - component: {fileID: 492490837}
   m_Layer: 0
   m_Name: Lobby Manager
@@ -145,22 +144,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &492490835
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 492490833}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 227461547, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  manager: {fileID: 0}
-  showGUI: 1
-  offsetX: 0
-  offsetY: 0
 --- !u!114 &492490836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,7 +172,6 @@ MonoBehaviour:
   m_OnlineScene: 
   m_SpawnPrefabs:
   - {fileID: 1109049153789882882, guid: 47e42acae098168469e0669c502439a1, type: 3}
-  - {fileID: 6888221295049646460, guid: 16c7ad6faba5fca49a75db81baa74ca1, type: 3}
   - {fileID: 643384417999186370, guid: 789fda3dd93ba97448fca96c4c2f8d92, type: 3}
   m_CustomConfig: 0
   m_MaxConnections: 4
@@ -257,11 +239,13 @@ MonoBehaviour:
   m_LobbyScene: Lobby
   m_PlayScene: Village
   lobbySlots: []
-  spawnPoint: {fileID: 1041793750696405972, guid: 5f381aca65621c24582877acb9dc9d93,
-    type: 3}
   newPlayerPrefab: {fileID: 6888221295049646460, guid: 16c7ad6faba5fca49a75db81baa74ca1,
     type: 3}
   hunterPrefab: {fileID: 1109049153789882882, guid: 47e42acae098168469e0669c502439a1,
+    type: 3}
+  playerSpawn: {fileID: 1041793750696405972, guid: 5f381aca65621c24582877acb9dc9d93,
+    type: 3}
+  hunterSpawn: {fileID: 2964605689500200416, guid: 55a2fe54bf33ca941ae9638a37f6ef17,
     type: 3}
 --- !u!114 &492490837
 MonoBehaviour:
@@ -275,7 +259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b304bf45520b2a340bf33c9e57cc26f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 0}
+  manager: {fileID: 492490836}
   showGUI: 1
   offsetX: 0
   offsetY: 0

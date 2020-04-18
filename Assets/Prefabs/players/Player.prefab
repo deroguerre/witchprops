@@ -125,16 +125,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3c146053ea07284d921de80a98f0d9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraPrefab: {fileID: 6302906421058536175, guid: 51bcb5d55265452448223ca54b0dd59e,
+    type: 3}
   movePower: 30
   maxSpeed: 4.5
-  jumpHeight: 10
+  jumpHeight: 20
   lowJumpMultiplier: 2
-  fallMultiplier: 2.5
+  fallMultiplier: 3.5
   allAvailableProps:
   - {fileID: 139238, guid: ea39c929a43fec843a8747fa0f34346e, type: 3}
   - {fileID: 187170, guid: 43578e9321cdf104991a337104abcf84, type: 3}
-  cameraPrefab: {fileID: 6302906421058536175, guid: 51bcb5d55265452448223ca54b0dd59e,
-    type: 3}
 --- !u!114 &114438853631968528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,8 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c1b8fbfae4ebe942a1347c711934c63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deadMaterial: {fileID: 0}
-  currentHealth: 100
+  maxHealth: 100
 --- !u!114 &8540276267483115384
 MonoBehaviour:
   m_ObjectHideFlags: 0

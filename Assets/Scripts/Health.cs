@@ -2,19 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+
 #pragma warning disable 618
 
 public class Health : NetworkBehaviour
 {
-    public const int maxHealth = 100;
-    public Material deadMaterial;
-    [SyncVar] public int currentHealth = maxHealth;
+    public int maxHealth = 100;
+    [SyncVar] private int _currentHealth;
 
-    private GameObject sceneManager = null;
+    private GameObject _sceneManager;
 
     private void Start()
     {
-        sceneManager = GameObject.Find("SceneManager");
+        _currentHealth = maxHealth;
+        _sceneManager = GameObject.Find("SceneManager");
     }
 
     public void TakeDamage(int amount)
@@ -22,17 +23,16 @@ public class Health : NetworkBehaviour
         if (!isServer)
             return;
 
-        currentHealth -= amount;
-        if (currentHealth <= 0)
+        _currentHealth -= amount;
+        if (_currentHealth <= 0)
         {
-
-            currentHealth = maxHealth;
-            NetworkLobbyCustom.nbSimplePlayer--;
+            _currentHealth = maxHealth;
+            NetworkLobbyCustom.NbSimplePlayer--;
 
             // endgame when all player are dead
-            if (NetworkLobbyCustom.nbSimplePlayer <= 0)
+            if (NetworkLobbyCustom.NbSimplePlayer <= 0)
             {
-                sceneManager.GetComponent<DisplayEndGame>().RpcShowPanel(true);
+                _sceneManager.GetComponent<DisplayEndGame>().RpcShowPanel(true);
             }
 
             // remove player

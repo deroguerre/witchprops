@@ -47005,8 +47005,8 @@ GameObject:
   - component: {fileID: 114250677844540070}
   - component: {fileID: 114309002162303824}
   m_Layer: 0
-  m_Name: HunterPlayer
-  m_TagString: Player
+  m_Name: Hunter
+  m_TagString: Hunter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -47018,8 +47018,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1109049153789882882}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 7.095, y: 1.9005038, z: 9.05}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_Children:
   - {fileID: 1111165672951062768}
@@ -47117,13 +47117,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7219e51a15158b04997c76a47bd3b954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hunterCamera: {fileID: 1732516608287529021}
   moveSpeed: 4
   maxYPushForce: 12
   bulletPrefab: {fileID: 643384417999186370, guid: 789fda3dd93ba97448fca96c4c2f8d92,
     type: 3}
   bulletSpawn: {fileID: 8676709072255823894}
-  hunterCamera: {fileID: 1732516608287529021}
-  time: 0
 --- !u!114 &114250677844540070
 MonoBehaviour:
   m_ObjectHideFlags: 0
