@@ -47100,7 +47100,7 @@ Rigidbody:
   m_Mass: 0.8
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 112
@@ -47123,6 +47123,9 @@ MonoBehaviour:
   bulletPrefab: {fileID: 643384417999186370, guid: 789fda3dd93ba97448fca96c4c2f8d92,
     type: 3}
   bulletSpawn: {fileID: 8676709072255823894}
+  jumpHeight: 7
+  lowJumpMultiplier: 2
+  fallMultiplier: 2.5
 --- !u!114 &114250677844540070
 MonoBehaviour:
   m_ObjectHideFlags: 0

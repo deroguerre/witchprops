@@ -35,6 +35,8 @@ public class PlayerController : NetworkBehaviour
 
     private float _jumpCooldown = 0.5f;
     private float _nextJump;
+    private float _transformationCooldown = 0.5f;
+    private float _nextTransformation;
     private float _distToGround;
 
     // Executed only on the local player
@@ -71,26 +73,39 @@ public class PlayerController : NetworkBehaviour
             return;
 
         // jump
-        if (Input.GetButtonDown("Jump") && IsGrounded() && Time.time > _nextJump)
+        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded() && Time.time > _nextJump)
         {
             _nextJump = Time.time + _jumpCooldown;
             _rigidbody.AddForce(Vector3.up * (jumpHeight * 100));
         }
 
         // falling
-        if (_rigidbody.velocity.y < 0)
+        // if (_rigidbody.velocity.y < 0)
+        // {
+        //     _rigidbody.velocity += Vector3.up * (Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime);
+        // }
+        // else if (_rigidbody.velocity.y > 0 && !Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     _rigidbody.velocity += Vector3.up * (Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime);
+        // }
+
+        if (Input.GetButtonDown("Fire1") && Time.time > _nextTransformation)
         {
-            _rigidbody.velocity += Vector3.up * (Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime);
-        }
-        else if (_rigidbody.velocity.y > 0 && !Input.GetButton("Jump"))
-        {
-            _rigidbody.velocity += Vector3.up * (Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime);
+            _nextTransformation = Time.time + _transformationCooldown;
+            CmdChangeModel(true);
+            _distToGround = gameObject.GetComponent<Collider>().bounds.extents.y;
         }
 
-        if (Input.GetButtonDown("Fire2"))
+        if (Input.GetButtonDown("Fire2") && Time.time > _nextTransformation)
         {
-            CmdChangeModel();
+            _nextTransformation = Time.time + _transformationCooldown;
+            CmdChangeModel(false);
             _distToGround = gameObject.GetComponent<Collider>().bounds.extents.y;
+        }
+
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            NetworkManager.singleton.StopClient();
         }
     }
 
@@ -132,14 +147,35 @@ public class PlayerController : NetworkBehaviour
     }
 
     [Command]
-    private void CmdChangeModel()
+    private void CmdChangeModel(bool nextOrPrevious)
     {
-        RpcChangeMesh();
+        RpcChangeMesh(nextOrPrevious);
     }
 
     [ClientRpc]
-    private void RpcChangeMesh()
+    private void RpcChangeMesh(bool nextOrPrevious)
     {
+        Debug.Log("props iterator = " + _propsIterator);
+        if (nextOrPrevious)
+        {
+            Debug.Log("next");
+            _propsIterator++;
+            if (_propsIterator >= allAvailableProps.Length)
+            {
+                _propsIterator = 0;
+            }
+        }
+        
+        if (!nextOrPrevious)
+        {
+            Debug.Log("previous");
+            _propsIterator--;
+            if (_propsIterator <= 0)
+            {
+                _propsIterator = allAvailableProps.Length - 1;
+            }
+        }
+        
         // prevent object to pass through terrain/objects
         gameObject.transform.position += new Vector3(0, 0.3f, 0);
 
@@ -148,14 +184,5 @@ public class PlayerController : NetworkBehaviour
             allAvailableProps[_propsIterator].GetComponent<MeshFilter>().sharedMesh;
         gameObject.GetComponent<MeshCollider>().sharedMesh =
             allAvailableProps[_propsIterator].GetComponent<MeshFilter>().sharedMesh;
-
-        if (_propsIterator == allAvailableProps.Length - 1)
-        {
-            _propsIterator = 0;
-        }
-        else
-        {
-            _propsIterator++;
-        }
     }
 }

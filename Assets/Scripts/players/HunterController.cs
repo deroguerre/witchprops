@@ -22,6 +22,15 @@ public class HunterController : NetworkBehaviour
     */
     private Transform _transform;
     private Rigidbody _rigidbody;
+    
+    //JUMP
+    public float jumpHeight = 1;
+    public float lowJumpMultiplier = 2f;
+    public float fallMultiplier = 2.5f;
+    private float _jumpCooldown = 0.5f;
+    private float _nextJump;
+    private float _distToGround;
+    private bool isJumping = false;
 
     // Start is called before the first frame update
     public override void OnStartLocalPlayer()
@@ -46,7 +55,7 @@ public class HunterController : NetworkBehaviour
 
         // player floating above ground and Y position adjustment
         Ray downRay = new Ray(transform.position, -Vector3.up);
-        if (Physics.Raycast(downRay, out RaycastHit hit))
+        if (Physics.Raycast(downRay, out RaycastHit hit) && isJumping == false)
         {
             if (hit.distance < 1f)
             {
@@ -65,10 +74,37 @@ public class HunterController : NetworkBehaviour
         }
     }
 
+    private bool IsGrounded()
+    {
+        return Physics.Raycast(transform.position, -Vector3.up, _distToGround + 1f);
+    }
+
     private void Update()
     {
         if (!isLocalPlayer)
             return;
+
+        if (IsGrounded())
+        {
+            Debug.Log("is Grounded");
+        }
+        // jump
+        // if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded() && Time.time > _nextJump)
+        {
+            isJumping = true;
+            Debug.Log("Jump");
+            _nextJump = Time.time + _jumpCooldown;
+            _rigidbody.AddForce(Vector3.up * (jumpHeight * 100));
+        }
+
+        if (isJumping)
+        {
+            if (Time.time > _nextJump)
+            {
+                isJumping = false;
+            }
+        }
 
         if (Input.GetButtonDown("Fire1"))
         {
