@@ -24,6 +24,8 @@ public class Health : NetworkBehaviour
             return;
 
         _currentHealth -= amount;
+        RpcDamageEffect();
+
         if (_currentHealth <= 0)
         {
             _currentHealth = maxHealth;
@@ -39,6 +41,21 @@ public class Health : NetworkBehaviour
             // @todo make camera follow hunter
             NetworkServer.Destroy(gameObject);
         }
+    }
+
+    [ClientRpc]
+    private void RpcDamageEffect()
+    {
+        // GetComponent<MeshRenderer>().material.color = Color.blue;
+        StartCoroutine(DamageEffectCoroutine());
+    }
+
+    IEnumerator DamageEffectCoroutine()
+    {
+        //Color tempDefaultColor = GetComponent<MeshRenderer>().material.color;
+        GetComponent<MeshRenderer>().material.color = Color.red;
+        yield return new WaitForSeconds(0.05f);
+        GetComponent<MeshRenderer>().material.color = Color.white;
     }
 
     //[ClientRpc]

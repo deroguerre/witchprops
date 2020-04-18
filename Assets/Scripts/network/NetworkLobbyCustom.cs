@@ -11,7 +11,7 @@ public class NetworkLobbyCustom : NetworkLobbyManager
     public GameObject hunterPrefab;
     public GameObject playerSpawn;
     public GameObject hunterSpawn;
-    public static bool HunterIsActive = true;
+    public static bool HunterIsActive = false;
     public static int NbSimplePlayer = 0;
 
     private int _spawnSpacing = 1;
