@@ -1,11 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 #pragma warning disable 618
 
-public class NetworkLobbyCustom : NetworkLobbyManager
+public class CustomNetworkLobby : NetworkLobbyManager
 {
     public GameObject newPlayerPrefab;
     public GameObject hunterPrefab;
@@ -15,6 +17,21 @@ public class NetworkLobbyCustom : NetworkLobbyManager
     public static int NbSimplePlayer = 0;
 
     private int _spawnSpacing = 1;
+
+    private void Start()
+    {
+        // showLobbyGUI = true;
+    }
+
+    private void OnGUI()
+    {
+        if (SceneManager.GetSceneAt(0).name != lobbyScene)
+            return;
+        GUI.Box(new Rect(90f, 180f, 500f, 150f), "Players:");
+        // if (!NetworkClient.active || !GUI.Button(new Rect(100f, 300f, 120f, 20f), "Add Player"))
+        //     return;
+        // TryToAddPlayer();
+    }
 
     public override void OnLobbyStartHost()
     {
@@ -85,7 +102,8 @@ public class NetworkLobbyCustom : NetworkLobbyManager
 
         Debug.Log("resetScene");
     }
-
+    
+    
     // public override void OnServerDisconnect(NetworkConnection conn)
     // {
     //     base.OnServerDisconnect(conn);

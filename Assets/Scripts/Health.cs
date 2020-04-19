@@ -29,10 +29,10 @@ public class Health : NetworkBehaviour
         if (_currentHealth <= 0)
         {
             _currentHealth = maxHealth;
-            NetworkLobbyCustom.NbSimplePlayer--;
+            CustomNetworkLobby.NbSimplePlayer--;
 
             // endgame when all player are dead
-            if (NetworkLobbyCustom.NbSimplePlayer <= 0)
+            if (CustomNetworkLobby.NbSimplePlayer <= 0)
             {
                 _sceneManager.GetComponent<DisplayEndGame>().RpcShowPanel(true);
             }

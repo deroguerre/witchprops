@@ -40,11 +40,11 @@ public class DisplayEndGame : NetworkBehaviour
 		PartyTimer.hidePhase = true;
 		PartyTimer.partyIsRunning = true;
 
-		NetworkLobbyCustom.singleton.StopClient();
+		CustomNetworkLobby.singleton.StopClient();
 
 		if (isServer)
 		{
-			NetworkLobbyCustom.singleton.StopServer();
+			CustomNetworkLobby.singleton.StopServer();
 		}
 
 		//NetworkManager.singleton.client.Disconnect();
